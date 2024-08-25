@@ -25,10 +25,15 @@ from UIFiles.main_UI import Ui_MainWindow
 from PySide6.QtWidgets import QGraphicsBlurEffect
 from PySide6.QtGui import QFont,QIcon
 from CustomTitle import CustomTitleBar
+from timeLine import TimelineSlider
 
 import assets
 
 from PySide6.QtCore import Qt, QPropertyAnimation, QEasingCurve, QRect, QEvent
+
+
+from constanst import ONE_HOUR
+
 
 # ui class
 class UI_main_window_org(sQMainWindow, Ui_MainWindow):
@@ -61,6 +66,15 @@ class UI_main_window_org(sQMainWindow, Ui_MainWindow):
 
 
 
+        # timeline_widget = self.layout_timeline
+        self.timeline = TimelineSlider(duration_ms=ONE_HOUR,played_color="green", unplayed_color="green",
+                                     played_red_color="red", unplayed_red_color="red",
+                                     show_dividers=False, groove_height=25,time_label=self.time_label)
+
+
+        self.timeline.set_minutes_segments([])
+        # GUIBackend.add_widget(self.frame_timeline,self.timeline)
+        GUIBackend.add_widget(self.layout_timeline,self.timeline)
 
 
 

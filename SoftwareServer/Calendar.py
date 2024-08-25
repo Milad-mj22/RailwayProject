@@ -188,7 +188,7 @@ QPushButton:pressed {
 
 class JalaliCalendarDialog(QWidget):
    
-    def __init__(self, input_field: QtWidgets.QLineEdit, date=None,maimumwidth:int = 300,maximumheight:int = 180):
+    def __init__(self, input_field: QtWidgets, date=None,maimumwidth:int = 300,maximumheight:int = 180):
         super().__init__()
 
         self.setWindowTitle("Jalali Calendar Dialog")
@@ -205,6 +205,7 @@ class JalaliCalendarDialog(QWidget):
         self.input_field = input_field
         self.spec_days = []
         self.path_selected_date = None
+        self.parent_func = None
 
         if date is None:
             date = JalaliDateTime.now()
@@ -276,7 +277,6 @@ class JalaliCalendarDialog(QWidget):
 
 
 
-
     def reject(self):
         self.close()
 
@@ -321,16 +321,16 @@ class JalaliCalendarDialog(QWidget):
 
 
                     ######################3 milad add ##############
-                    if month<=9:
-                        str_month = '0'+str(month)
-                    else:
-                        str_month = month
-                    if day<=9:
-                        str_day = '0'+str(day)
-                    else:
-                        str_day = day
+                    # if month<=9:
+                    #     str_month = '0'+str(month)
+                    # else:
+                    #     str_month = month
+                    # if day<=9:
+                    #     str_day = '0'+str(day)
+                    # else:
+                    #     str_day = day
 
-                    today = f'{year}_{str_month}_{str_day}'
+                    today = f'{year}_{month}_{day}'
 
 
                     if self.check_spec_day(day=today):
@@ -422,6 +422,9 @@ class JalaliCalendarDialog(QWidget):
         self.str_date = str_date
         self.input_field.setText(str_date)
 
+        if self.parent_func is not None:
+            self.parent_func(self.date)
+
         # GUIBackend.set_input(self.input_field, str_date)
 
 
@@ -436,6 +439,12 @@ class JalaliCalendarDialog(QWidget):
         if day in self.spec_days:
             return True
         return False
+
+
+
+
+    def set_parent_function(self,func):
+        self.parent_func = func
 
 
 

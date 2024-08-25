@@ -251,8 +251,9 @@ class GUIBackend:
         """
         if isinstance(parent, QtWidgets.QVBoxLayout) or isinstance(parent, QtWidgets.QHBoxLayout)  :
             parent.addWidget(widget)
-        else:
-            pass
+        elif isinstance(parent, QtWidgets.QFrame):
+            layout = parent.layout()    
+            layout.addWidget(widget)
 
     @staticmethod
     def set_layout_alignment(layout:QtWidgets.QVBoxLayout, alignment:str):

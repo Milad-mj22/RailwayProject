@@ -728,8 +728,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_16.setContentsMargins(0, 0, 0, 0)
         self.frame_13 = QFrame(self.frame_12)
         self.frame_13.setObjectName(u"frame_13")
-        self.frame_13.setMinimumSize(QSize(1, 1))
-        self.frame_13.setMaximumSize(QSize(16777211, 16777211))
+        self.frame_13.setMinimumSize(QSize(1, 50))
+        self.frame_13.setMaximumSize(QSize(16777211, 50))
         self.frame_13.setStyleSheet(u"QFrame{\n"
 "	background: #1b2c5a;\n"
 "	border-radius:3px;\n"
@@ -899,25 +899,38 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_32.addItem(self.horizontalSpacer_4)
 
+        self.frame_21 = QFrame(self.frame_58)
+        self.frame_21.setObjectName(u"frame_21")
+        self.frame_21.setMinimumSize(QSize(100, 0))
+        self.frame_21.setFrameShape(QFrame.StyledPanel)
+        self.frame_21.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_30 = QHBoxLayout(self.frame_21)
+        self.horizontalLayout_30.setObjectName(u"horizontalLayout_30")
+        self.label = QLabel(self.frame_21)
+        self.label.setObjectName(u"label")
+        self.label.setStyleSheet(u"color: rgb(255, 255, 255);")
+
+        self.horizontalLayout_30.addWidget(self.label)
+
+        self.time_label = QLabel(self.frame_21)
+        self.time_label.setObjectName(u"time_label")
+        self.time_label.setStyleSheet(u"color: rgb(255, 255, 255);")
+
+        self.horizontalLayout_30.addWidget(self.time_label)
+
+
+        self.horizontalLayout_32.addWidget(self.frame_21)
+
 
         self.horizontalLayout_4.addWidget(self.frame_58)
 
 
         self.verticalLayout_16.addWidget(self.frame_13)
 
-        self.frame_21 = QFrame(self.frame_12)
-        self.frame_21.setObjectName(u"frame_21")
-        self.frame_21.setFrameShape(QFrame.StyledPanel)
-        self.frame_21.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_23 = QVBoxLayout(self.frame_21)
-        self.verticalLayout_23.setObjectName(u"verticalLayout_23")
-        self.label_4 = QLabel(self.frame_21)
-        self.label_4.setObjectName(u"label_4")
+        self.layout_timeline = QVBoxLayout()
+        self.layout_timeline.setObjectName(u"layout_timeline")
 
-        self.verticalLayout_23.addWidget(self.label_4)
-
-
-        self.verticalLayout_16.addWidget(self.frame_21)
+        self.verticalLayout_16.addLayout(self.layout_timeline)
 
 
         self.verticalLayout_15.addWidget(self.frame_12)
@@ -2660,7 +2673,8 @@ class Ui_MainWindow(object):
         self.speed_btn.setToolTip(QCoreApplication.translate("MainWindow", u"Stop Live", None))
 #endif // QT_CONFIG(tooltip)
         self.speed_btn.setText(QCoreApplication.translate("MainWindow", u"1x", None))
-        self.label_4.setText(QCoreApplication.translate("MainWindow", u"Timeline", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"Time : ", None))
+        self.time_label.setText(QCoreApplication.translate("MainWindow", u"-", None))
         self.label_21.setText(QCoreApplication.translate("MainWindow", u"Settings", None))
         self.groupBox_3.setTitle(QCoreApplication.translate("MainWindow", u"Manage Systems", None))
         self.label_16.setText(QCoreApplication.translate("MainWindow", u"Name  : ", None))
