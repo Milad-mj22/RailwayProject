@@ -1,0 +1,32 @@
+{
+    "cameras":[
+        {   
+            "name": "left",
+            "ip": "192.168.1.13",
+            "username": "admin",
+            "password": "Milad1375422@"
+            
+            
+        },
+
+        {   
+            "name": "right",
+            "ip": "192.168.1.2",
+            "username": "root",
+            "password": "password"
+            
+        }
+    ],
+
+    "path" : "images",
+    "train_id": "11BG21",
+    "max_file_count": 100,
+    "motion": "true",
+    "motion_sens": 3000,
+
+    "output": "stack_image",
+    "video_fps": 24,
+    "video_frames": 500
+
+    
+}
