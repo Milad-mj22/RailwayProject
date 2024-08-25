@@ -262,25 +262,26 @@ class DataBase():
 
 
 if __name__=='__main__':
+    from constanst import MAX_SPEED,COLUMN_DESTINATION,TABLE_PATHES
     db = DataBase('data.db')
-    
+    db.fetch_spec_parm_table(table_name=TABLE_PATHES,col_name=COLUMN_DESTINATION,spec_row='0')
     # db.update_row_by_id_zero('id',0)
-    db.update_row_by_id_zero('username','test')
-    res = db.fetch_table_as_dict()
+    # db.update_row_by_id_zero('username','test')
+    # res = db.fetch_table_as_dict()
 
-    db.update_row_by_id_zero('username','test2')
-    res = db.fetch_table_as_dict()
+    # db.update_row_by_id_zero('username','test2')
+    # res = db.fetch_table_as_dict()
 
-    print(res)
+    # print(res)
 
 
 
-        # Example: Add a new entry to the 'data' table
-    db.add_value('data', ip='192.168.1.100', username='testuser', password='testpass')
+    #     # Example: Add a new entry to the 'data' table
+    # db.add_value('data', ip='192.168.1.100', username='testuser', password='testpass')
 
-    # Example: Add a new entry to the 'pathes' table
-    db.add_value('pathes', folder_to_copy='/path/to/source', destination_folder='/path/to/destination')
+    # # Example: Add a new entry to the 'pathes' table
+    # db.add_value('pathes', folder_to_copy='/path/to/source', destination_folder='/path/to/destination')
 
-    # Fetch and print all rows from 'data' table
-    res = db.fetch_table_as_dict()
-    print(res)
+    # # Fetch and print all rows from 'data' table
+    # res = db.fetch_table_as_dict()
+    # print(res)

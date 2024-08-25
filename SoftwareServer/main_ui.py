@@ -1,7 +1,7 @@
 import os
 os.system('pyside6-uic {} -o {}'.format(os.path.join('UIFiles', 'calendar.ui'), os.path.join('UIFiles', 'calendar.py')))
 os.system('pyside6-uic {} -o {}'.format(os.path.join('UIFiles', 'main_UI.ui'), os.path.join('UIFiles', 'main_UI.py')))
-
+os.system('CMD /C pyside6-rcc assets.qrc -o assets.py')#PySide
 ##############################################################################################################################
 
 from PySide6.QtUiTools import loadUiType
@@ -23,9 +23,12 @@ from PySide6.QtCore import Qt
 from UIFiles.main_UI import Ui_MainWindow
 
 from PySide6.QtWidgets import QGraphicsBlurEffect
+from PySide6.QtGui import QFont,QIcon
+from CustomTitle import CustomTitleBar
 
+import assets
 
-
+from PySide6.QtCore import Qt, QPropertyAnimation, QEasingCurve, QRect, QEvent
 
 # ui class
 class UI_main_window_org(sQMainWindow, Ui_MainWindow):
@@ -38,9 +41,17 @@ class UI_main_window_org(sQMainWindow, Ui_MainWindow):
 
         # window setup
         self.setupUi(self)
+        self.setWindowTitle("Iran RailWay Monitoring")
+        # Set the window icon
+        self.setWindowIcon(QIcon(":/icons/icons/download.png"))
 
+
+        
         self.stackedWidget.setCurrentWidget(self.page_playback)
         
+
+
+
         self.button_connector()
         
         # Create a central widget
@@ -54,6 +65,42 @@ class UI_main_window_org(sQMainWindow, Ui_MainWindow):
 
 
         self.preview_login = False
+
+
+
+        # Create animations
+        self.animation = QPropertyAnimation(self.toggle_frame, b"geometry")
+        self.animation.setDuration(1500)  # Duration in milliseconds (1.5 seconds)
+        self.animation.setEasingCurve(QEasingCurve.InOutQuad)  # Easing curve for smooth animation
+
+        # Connect the button's clicked event
+        self.btn_logo.clicked.connect(self.toggle_frame_visibility)
+        self.btn_logo.installEventFilter(self)  # Install an event filter to handle double clicks
+
+    def toggle_frame_visibility(self):
+        if self.toggle_frame.isVisible():
+            # Animate closing
+            self.animation.setStartValue(self.toggle_frame.geometry())
+            self.animation.setEndValue(QRect(self.toggle_frame.x(), self.toggle_frame.y(), 0, self.toggle_frame.height()))
+            self.animation.start()
+            self.toggle_frame.setVisible(False)
+        else:
+            # Animate opening
+            self.toggle_frame.setVisible(True)
+            self.animation.setStartValue(QRect(self.toggle_frame.x(), self.toggle_frame.y(), 0, self.toggle_frame.height()))
+            self.animation.setEndValue(QRect(self.toggle_frame.x(), self.toggle_frame.y(), 200, self.toggle_frame.height()))
+            self.animation.start()
+
+    def eventFilter(self, source, event):
+        if source == self.btn_logo and event.type() == QEvent.MouseButtonDblClick:
+            # Hide frame on double click with animation
+            if self.toggle_frame.isVisible():
+                self.animation.setStartValue(self.toggle_frame.geometry())
+                self.animation.setEndValue(QRect(self.toggle_frame.x(), self.toggle_frame.y(), 0, self.toggle_frame.height()))
+                self.animation.start()
+                self.toggle_frame.setVisible(False)
+            return True
+        return super(UI_main_window_org, self).eventFilter(source, event)
 
 
     def open_calender(self, name:str):
@@ -348,12 +395,35 @@ class UI_main_window_org(sQMainWindow, Ui_MainWindow):
 
 
 
+
+    def set_item_combo_box(self,combo_name,items):
+
+        GUIBackend.set_combobox_items(combo_name,items)
+  
+
+    def ret_current_value_combo_box(self,combo_name):
+        return combo_name.currentText()
+        
+
+
+    def update_image(self, pixmap):
+        # Resize the image to fit the label
+        # self.show_image.setPixmap(pixmap.scaled(self.show_image.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation))
+        self.show_image.setPixmap(pixmap.scaled(self.show_image.size()))#, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+
+
+
+
+
+
+
 if __name__ == "__main__":
 
 
 
     from api import API
     app = sQApplication()
+
     win = UI_main_window_org()
     api = API(win)
     win.show()

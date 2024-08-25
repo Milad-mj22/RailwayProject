@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CalendarDialog</class>
+ <widget class="QDialog" name="CalendarDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>354</width>
+    <height>467</height>
+   </rect>
+  </property>
+  <property name="cursor">
+   <cursorShape>UpArrowCursor</cursorShape>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QWidget" name="GlobalStyleSheet" native="true">
+     <property name="styleSheet">
+      <string notr="true">/**************************Global Font***************************/
+
+QWidget
+{
+    font: auto &quot;Roboto&quot;;
+    color: white; /* Ensuring text is visible on darker backgrounds */
+}
+
+/***********************QCalendarWidget************************/
+
+QCalendarWidget {
+    background-color: transparent;
+}
+
+QCalendarWidget QToolButton {
+    background-color: transparent;
+    color: rgb(220, 220, 220); 
+    font-size: 16pt;
+    font-weight: bold;
+    border: none;
+    min-height: 40px;
+    max-height: 40px;
+}
+
+QCalendarWidget QToolButton#qt_calendar_prevmonth
+{
+    background-color: transparent;
+    min-height: 40px;
+    max-height: 40px;
+    min-width: 40px;
+    max-width: 40px;
+    border-radius: 5px;
+    border: 2px solid #343a40; 
+}
+
+QCalendarWidget QToolButton#qt_calendar_nextmonth
+{
+    background-color: transparent;
+    min-height: 40px;
+    max-height: 40px;
+    min-width: 40px;
+    max-width: 40px;
+    border-radius: 5px;
+    border: 2px solid #343a40;
+}
+
+QCalendarWidget QToolButton#qt_calendar_prevmonth:hover,
+QCalendarWidget QToolButton#qt_calendar_nextmonth:hover
+{
+    background-color: #343a40; 
+}
+
+QCalendarWidget QToolButton#qt_calendar_prevmonth:pressed,
+QCalendarWidget QToolButton#qt_calendar_nextmonth:pressed
+{
+    background-color: #23272b; 
+}
+
+QCalendarWidget QWidget#qt_calendar_navigationbar 
+{
+    background-color: transparent; 
+    min-height: 80px;
+}
+
+QCalendarWidget QTableView 
+{
+    outline: none;
+    background-color: rgba(10, 14, 26, 255); 
+    selection-background-color: #7892DF;
+    selection-color: white;
+	alternate-background-color: transparent;
+    border-top: 2px solid #343a40;
+    border-bottom: 2px solid #343a40;
+}
+
+QCalendarWidget QComboBox QAbstractItemView {
+    background-color: red; /* Background color of the dropdown items */
+    selection-background-color: red; /* Background color of a selected item */
+    selection-color: red; /* Text color of a selected item */
+}
+</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QWidget" name="LocalStyleSheet" native="true">
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QWidget" name="PointStyleSheet" native="true">
+           <property name="styleSheet">
+            <string notr="true">/*******************PmainFrameStyle********************/
+
+*[styleSheet=&quot;PmainFrameStyle&quot;]
+{
+	background-color: rgba(10, 14, 26, 255);
+	border-radius: 20px;
+}
+
+/*******************PokPushButtonStyle********************/
+
+*[styleSheet=&quot;PokPushButtonStyle&quot;]
+{
+	background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgb(126, 132, 162), stop:1 rgb(31, 42, 77));
+	color: rgba(255, 255, 255, 210);
+	border-radius: 12px;
+	min-width: 150;
+	max-width: 150;
+	min-height:40;
+	max-height: 40;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+*[styleSheet=&quot;PokPushButtonStyle&quot;]:disabled
+{
+	background-color: qlineargradient(spread:pad, x1:0.635, y1:1, x2:0.44, y2:0, stop:0 rgba(189, 189, 191, 255), stop:1 rgba(189, 189, 191, 255));
+	color: rgba(120, 120, 120, 255);
+}
+
+*[styleSheet=&quot;PokPushButtonStyle&quot;]:hover
+{
+	background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgb(139, 146, 179), stop:1 rgba(40, 67, 98, 219));
+}
+
+*[styleSheet=&quot;PokPushButtonStyle&quot;]:pressed
+{
+	padding-left: 5px;
+	padding-top: 5px;
+}
+
+/*******************PcancelPushButtonStyle********************/
+
+*[styleSheet=&quot;PcancelPushButtonStyle&quot;]
+{
+	border: 2px solid  rgb(126, 132, 162);
+	color:  rgb(126, 132, 162);
+	border-radius: 12px;
+	min-width: 150;
+	max-width: 150;
+	min-height: 36;
+	max-height: 36;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+*[styleSheet=&quot;PcancelPushButtonStyle&quot;]:disabled
+{
+	border: 2px solid rgba(189, 189, 191, 255);
+	color: rgba(120, 120, 120, 255);
+}
+
+*[styleSheet=&quot;PcancelPushButtonStyle&quot;]:hover
+{
+	border: 2px solid rgb(139, 146, 179);
+	color:  rgb(139, 146, 179);
+}
+
+*[styleSheet=&quot;PcancelPushButtonStyle&quot;]:pressed
+{
+	padding-left: 5px;
+	padding-top: 5px;
+}
+</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QFrame" name="main_frame">
+              <property name="styleSheet">
+               <string notr="true">PmainFrameStyle</string>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_5">
+               <property name="spacing">
+                <number>17</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>17</number>
+               </property>
+               <item>
+                <widget class="QCalendarWidget" name="calendar">
+                 <property name="maximumSize">
+                  <size>
+                   <width>350</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="firstDayOfWeek">
+                  <enum>Qt::Sunday</enum>
+                 </property>
+                 <property name="gridVisible">
+                  <bool>false</bool>
+                 </property>
+                 <property name="selectionMode">
+                  <enum>QCalendarWidget::SingleSelection</enum>
+                 </property>
+                 <property name="horizontalHeaderFormat">
+                  <enum>QCalendarWidget::ShortDayNames</enum>
+                 </property>
+                 <property name="verticalHeaderFormat">
+                  <enum>QCalendarWidget::NoVerticalHeader</enum>
+                 </property>
+                 <property name="navigationBarVisible">
+                  <bool>true</bool>
+                 </property>
+                 <property name="dateEditEnabled">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout">
+                 <property name="spacing">
+                  <number>10</number>
+                 </property>
+                 <item>
+                  <spacer name="horizontalSpacer">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="cancel_btn">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">PcancelPushButtonStyle</string>
+                   </property>
+                   <property name="text">
+                    <string>Cancel</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="ok_btn">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">PokPushButtonStyle</string>
+                   </property>
+                   <property name="text">
+                    <string>OK</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_2">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="assets/assets.qrc"/>
+ </resources>
+ <connections/>
+</ui>
