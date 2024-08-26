@@ -10,9 +10,14 @@ class ImagePLayer:
         self.hour_idx = 0
         self.minute_idx = 0
         self.image_idx = 0
-    
+
+        self.houres = []
         self.minutes = []
         self.images = []
+
+        self.load_availables_hours_folder()
+        self.load_availables_minutes_folder()
+        self.load_availables_images()
 
     def load_availables_hours_folder(self,):
         self.houres = os.listdir(self.path)
@@ -49,7 +54,7 @@ class ImagePLayer:
                 self.hour_idx+=1
 
                 if self.hour_idx > len(self.houres):
-                    return None, True
+                    return None, True, None
                 
                 self.load_availables_minutes_folder()
             self.load_availables_images()
@@ -57,12 +62,14 @@ class ImagePLayer:
         current_houre = self.houres[self.hour_idx]
         current_minute = self.minutes[self.minute_idx]
         current_image = self.images[self.image_idx]
+
+        dt,_,_ = self.extract_file_name_info(current_houre)
         path = os.path.join(self.path, 
                             str(current_houre),
                             str(current_minute),
                             str(current_image))
         img = cv2.imread(path)
-        return img, False
+        return img, False, dt
                 
     def set_time(self, h:int,m:int, s:int):
         self.hour_idx = self.houres.index(str(h))
