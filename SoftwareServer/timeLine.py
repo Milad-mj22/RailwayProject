@@ -197,6 +197,7 @@ class TimelineSlider(QWidget):
                  groove_height=10, time_label=None, parent=None):
         super().__init__(parent)
         self.duration_ms = duration_ms
+        self.signals_blocked = False  # To track if signals are blocked
 
         # Create the custom slider with the input colors, divider option, and groove height
         self.slider = CustomSlider(Qt.Horizontal, played_color, unplayed_color, played_red_color,
@@ -214,8 +215,8 @@ class TimelineSlider(QWidget):
 
     def slider_moved_with_time(self, current_time_ms):
         """When the slider is moved, handle the current time in ms"""
-        # If you need to do something with the current time in ms, handle it here
-        print(f"Slider moved to time: {current_time_ms} ms")
+        if not self.signals_blocked:  # Only emit if signals are not blocked
+            print(f"Slider moved to time: {current_time_ms} ms")
 
     def set_minutes_segments(self, minutes_list):
         """Set green segments based on a list of minutes, other parts will be red"""
@@ -247,6 +248,24 @@ class TimelineSlider(QWidget):
         """Handle the event when a red section is clicked"""
         print("This section is not available in the video.")
 
+    def move_to_time(self, time_ms, emit_signal=True):
+        """Move the slider to the given time in milliseconds.
+
+        If emit_signal is False, the sliderMovedWithTime signal will not be emitted during this move.
+        """
+        # Block signals temporarily if required
+        self.signals_blocked = not emit_signal
+
+        # Move the slider to the desired position
+        self.slider.setValue(time_ms)
+
+        # Manually emit the signal if required
+        if emit_signal:
+            self.slider.sliderMovedWithTime.emit(time_ms)
+
+        # Unblock signals after the operation
+        self.signals_blocked = False
+
 
 # Define the function that prints the time received from the slider
 def print_time(time_ms):
@@ -277,6 +296,7 @@ if __name__ == "__main__":
 
     # Connect the print_time function to the slider's sliderMovedWithTime signal
     timeline_slider.slider.sliderMovedWithTime.connect(print_time)
+    timeline_slider.move_to_time(419000)
 
     # Create a layout and add the TimelineSlider and time_label
     layout = QVBoxLayout()

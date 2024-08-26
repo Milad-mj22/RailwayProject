@@ -81,8 +81,9 @@ class imageSave:
         self.__saved_files  = os.listdir(self.saved_image_path)
 
 
-    def generate_path(self, now:JalaliDateTime):
+    def generate_path(self, now:JalaliDateTime, cam_name:str):
         path = os.path.join(self.saved_image_path,
+                            cam_name,
                             str(now.year),
                             str(now.month),
                             str(now.day),
@@ -102,7 +103,7 @@ class imageSave:
         self.start_time[camera_name] = JalaliDateTime.now()
         file_name = self.gen_file_name(self.start_time[camera_name], camera_name)
         file_name = file_name + self.image_extention
-        img_path = self.generate_path(self.start_time[camera_name])
+        img_path = self.generate_path(self.start_time[camera_name], camera_name)
         if not os.path.exists(img_path):
             os.makedirs(img_path)
         img_path = os.path.join(img_path, file_name)
@@ -136,7 +137,7 @@ class imageSave:
         if cnt >= self.IMAGE_STACK:
             file_name = self.gen_file_name(self.start_time[camera_name], camera_name)
             file_name = file_name + self.image_extention
-            img_path = self.generate_path(self.start_time[camera_name])
+            img_path = self.generate_path(self.start_time[camera_name], camera_name)
             if not os.path.exists(img_path):
                 os.makedirs(img_path)
             img_path = os.path.join(img_path, file_name)
@@ -170,7 +171,7 @@ class imageSave:
 
             file_name = self.gen_file_name(self.start_time[camera_name], camera_name)
             file_name = file_name + self.image_extention
-            video_path = self.generate_path(self.start_time[camera_name])
+            video_path = self.generate_path(self.start_time[camera_name], camera_name)
             if not os.path.exists(video_path):
                 os.makedirs(video_path)
             video_path = os.path.join(video_path, file_name)
