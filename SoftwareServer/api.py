@@ -11,6 +11,7 @@ from loading_train import LoadingWindow
 from ImageLoader import ImageLoader
 from threading import Thread, Event
 
+
 class API:
     def __init__(self, ui_obj:UI_main_window_org):
 
@@ -26,6 +27,7 @@ class API:
         self.stop_event = Event()
         self.image_loader = ImageLoader(self.stop_event,'', self.speed_rate)
 
+        self.ui_obj.calendar_dialog.set_parent_function(self.calendar_day_click)
 
 
     def button_connector(self):
@@ -342,13 +344,52 @@ class API:
             print('First Set/Select train')
             return
         
-        selected_date = self.ui_obj.calendar_dialog.str_date
+        selected_date = self.ui_obj.calendar_dialog.path_selected_date
         self.path_selected_day = os.path.join(self.des_path,self.train_id,selected_date)
         return self.path_selected_day
 
 
 
 
+
+    def calendar_day_click(self,date):
+        print('clcik',date)
+        str_date = date.strftime("%Y/%m/%d")
+        
+        path_day = self.generate_path(date)
+
+        available_times = self.get_available_times(path_day=path_day)
+
+        self.set_timeline_exist(available_times)
+
+
+    def generate_path(self,date):
+
+        path = os.path.join( self.path_train_id,
+                                    str(date.year),
+                                    str(date.month),
+                                    str(date.day),
+                                    )
+        return path   
+
+    def get_available_times(self,path_day):
+        available_times = []
+        for h in os.listdir(path_day):
+            hour_path = os.path.join(path_day,h)
+            for m in os.listdir(hour_path):
+                minute_path = os.path.join(hour_path,m)
+                if len(os.listdir(minute_path))>1:
+
+                    available_times.append((int(h)*60)+int(m))
+        
+
+        return available_times
+
+
+
+    def set_timeline_exist(self,available_times):
+
+        self.ui_obj.timeline.set_minutes_segments(available_times)
 
 
 

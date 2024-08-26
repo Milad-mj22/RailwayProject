@@ -10,33 +10,41 @@ def create_image(path):
         os.mkdir(path)
 
     for h in range(0,24):
-        if h<=9:
-            str_h = '0'+str(h)
-        else:
-            str_h = h
+        # if h<=9:
+        #     str_h = '0'+str(h)
+        # else:
+        str_h = h
 
         if not os.path.exists(os.path.join(path,str(str_h))):
             os.mkdir(os.path.join(path,str(str_h)))
         for m in range(0,60):
 
-            if m<=9:
-                str_m = '0'+str(m)
-            else:
-                str_m = m
+            # if m<=9:
+            #     str_m = '0'+str(m)
+            # else:
+            str_m = m
+
+            int_random = random.randint(1,15)
+
+            if int_random%3 == 0:
+                continue
+
+           
+            if not os.path.exists(os.path.join(path,str(str_h),str(m))):
+                os.mkdir(path=os.path.join(path,str(str_h),str(m)))
+            new_path = os.path.join(path,str(str_h),str(m))
+
 
             for s in range(0,60):
 
-                if s<=9:
-                    str_s = '0'+str(s)
-                else:
-                    str_s = s
+                # if s<=9:
+                #     str_s = '0'+str(s)
+                # else:
+                str_s = s
 
 
 
-                if m % 5 == 0:
-                    if not os.path.exists(os.path.join(path,str(str_h),str(str_m))):
-                        os.mkdir(path=os.path.join(path,str(str_h),str(str_m)))
-                    new_path = os.path.join(path,str(str_h),str(str_m))
+
 
 
 
