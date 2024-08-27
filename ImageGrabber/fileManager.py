@@ -62,7 +62,9 @@ class fileManager:
     def remove_share(share_name):
         try:
             # Remove the share
+            
             win32net.NetShareDel(None, share_name)
+
             print(f"Share '{share_name}' removed successfully.")
         except Exception as e:
             print(f"Error: {e}")

@@ -1,8 +1,9 @@
-import json
+import json,os
 
 
 class configReader:
-    PATH = 'ImageGrabber/config.json'
+    PATHES = ['ImageGrabber/config.json','config.json']
+    # PATH2 = 
 
     def __init__(self) -> None:
         self.config = {}
@@ -20,8 +21,16 @@ class configReader:
 
 
     def load(self,):
-        with open(self.PATH) as f:
-            self.config = json.load(f)
         
+        for path in self.PATHES:
+            if os.path.exists(path):
+                with open(path) as f:
+                    self.config = json.load(f)
+                
+                return
+
+        
+        print('Path Not Exist not congig detect')
+            
 
 configReader()

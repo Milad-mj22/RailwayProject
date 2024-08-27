@@ -454,7 +454,7 @@ class API:
             if status:
                 self.ui_obj.stop_btn.click()
             else:
-                print('Elpassed time : ',time.time()-t1)
+                # print('Elpassed time : ',time.time()-t1)
                 pixmap = QPixmap(path)
                 self.ui_obj.update_image(pixmap=pixmap)
 

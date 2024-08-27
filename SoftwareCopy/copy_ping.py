@@ -81,8 +81,8 @@ class ShareCopyWorker(QThread):
 
 
                     if doing_copy:
-
-                        new_path = Utils.generate_path(dest_dir,date_time,train_id)
+                        new_path = root.replace(self.folder_to_copy, dest_dir)
+                        #new_path = Utils.generate_path(dest_dir,date_time,train_id,'left')
                         if not os.path.exists(new_path):
                             os.makedirs(new_path)
                         dest_file = os.path.join(new_path, file)
@@ -153,9 +153,10 @@ class Utils():
     
 
     @staticmethod
-    def generate_path(main_path:str, dt:JalaliDateTime, train_id:str):
+    def generate_path(main_path:str, dt:JalaliDateTime, train_id:str,camera_name:str):
         return os.path.join(main_path,
                     train_id,
+                    camera_name,
                     str(dt.year),
                     str(dt.month),
                     str(dt.day)

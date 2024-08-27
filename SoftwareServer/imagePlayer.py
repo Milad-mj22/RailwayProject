@@ -74,7 +74,7 @@ class ImagePLayer:
         t =time.time()
         # img = cv2.imread(path)
         img = None
-        print('read',time.time()-t)
+        # print('read',time.time()-t)
         
         return img, False, dt,path
                 

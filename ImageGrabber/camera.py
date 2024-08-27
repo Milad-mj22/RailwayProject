@@ -7,6 +7,7 @@ import cv2
 
 
 THREAD = False
+DEBUG_WEBCAM = True
 
 class Camera:
     MAX_ERROR_COUNT = 5
@@ -72,8 +73,10 @@ class Camera:
         self.vCap = None
 
         while True:
-            #self.vCap = cv2.VideoCapture(self.stream_url)
-            self.vCap = cv2.VideoCapture(0)
+            if not DEBUG_WEBCAM:
+                self.vCap = cv2.VideoCapture(self.stream_url)
+            else:
+                self.vCap = cv2.VideoCapture(0)
           
             if self.vCap.isOpened():
                 print('Camera is connected')

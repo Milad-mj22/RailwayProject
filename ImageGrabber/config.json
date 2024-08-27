@@ -18,7 +18,7 @@
         }
     ],
 
-    "path" : "images",
+    "path" : "C:/image_share",
     "train_id": "11BG21",
     "max_file_count": 100,
     "motion": "true",

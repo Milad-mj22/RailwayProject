@@ -1,4 +1,4 @@
-MAX_SPEED = 64
+MAX_SPEED = 16
 
 TABLE_PATHES = 'pathes'
 
