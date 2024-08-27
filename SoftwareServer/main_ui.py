@@ -55,7 +55,8 @@ class UI_main_window_org(sQMainWindow, Ui_MainWindow):
         self.stackedWidget.setCurrentWidget(self.page_playback)
         
 
-
+        self.show_camera_left=False
+        self.show_camera_right=False
 
         self.button_connector()
         
@@ -90,6 +91,34 @@ class UI_main_window_org(sQMainWindow, Ui_MainWindow):
         # Connect the button's clicked event
         self.btn_logo.clicked.connect(self.toggle_frame_visibility)
         self.btn_logo.installEventFilter(self)  # Install an event filter to handle double clicks
+
+
+
+
+
+        # Connect the stateChanged signal to the respective functions
+        self.checkBox_camera_left.stateChanged.connect(self.camera_left_toggled)
+        self.checkBox_camera_left.stateChanged.connect(self.camera_right_toggled)
+
+
+
+
+
+    def camera_left_toggled(self, state):
+        if state == 2:  # 2 means checked, 0 means unchecked
+            self.show_camera_left = True
+        if state == 0:  # 2 means checked, 0 means unchecked
+            self.show_camera_left = False
+    def camera_right_toggled(self, state):
+        if state == 2:  # 2 means checked, 0 means unchecked
+            self.show_camera_right = True
+        if state == 0:  # 2 means checked, 0 means unchecked
+            self.show_camera_right = False
+
+
+
+
+
 
     def toggle_frame_visibility(self):
         if self.toggle_frame.isVisible():

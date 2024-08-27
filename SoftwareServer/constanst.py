@@ -5,3 +5,5 @@ TABLE_PATHES = 'pathes'
 COLUMN_DESTINATION = 'destination_folder'
 
 ONE_HOUR = 86400000
+
+MODE_FOR_LOOP = False

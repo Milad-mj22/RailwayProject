@@ -96,10 +96,12 @@ class CustomSlider(QSlider):
         self.setSliderDown(False)  # Stop dragging the slider when the mouse leaves
         super().leaveEvent(event)
 
-    def emit_time_update(self):
+    def emit_time_update(self, emit=True):
         """Emit the current time in milliseconds and update the label if provided."""
         current_time_ms = self.value()
-        self.sliderMovedWithTime.emit(current_time_ms)
+
+        if emit:
+            self.sliderMovedWithTime.emit(current_time_ms)
 
         # Update the QLabel if provided
         if self.time_label:
@@ -254,17 +256,16 @@ class TimelineSlider(QWidget):
         If emit_signal is False, the sliderMovedWithTime signal will not be emitted during this move.
         """
         # Block signals temporarily if required
-        self.signals_blocked = not emit_signal
 
         # Move the slider to the desired position
         self.slider.setValue(time_ms)
 
         # Manually emit the signal if required
-        if emit_signal:
-            self.slider.sliderMovedWithTime.emit(time_ms)
+        self.slider.emit_time_update(emit_signal)
 
-        # Unblock signals after the operation
-        self.signals_blocked = False
+
+
+
 
 
 # Define the function that prints the time received from the slider

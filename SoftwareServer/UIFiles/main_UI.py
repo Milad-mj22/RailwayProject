@@ -691,7 +691,43 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_12.addWidget(self.line_14)
 
-        self.show_image = QLabel(self.frame_18)
+        self.frame_22 = QFrame(self.frame_18)
+        self.frame_22.setObjectName(u"frame_22")
+        self.frame_22.setFrameShape(QFrame.StyledPanel)
+        self.frame_22.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_5 = QVBoxLayout(self.frame_22)
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
+        self.frame_24 = QFrame(self.frame_22)
+        self.frame_24.setObjectName(u"frame_24")
+        self.frame_24.setMinimumSize(QSize(0, 35))
+        self.frame_24.setMaximumSize(QSize(16777215, 35))
+        self.frame_24.setFrameShape(QFrame.StyledPanel)
+        self.frame_24.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_41 = QHBoxLayout(self.frame_24)
+        self.horizontalLayout_41.setObjectName(u"horizontalLayout_41")
+        self.horizontalLayout_41.setContentsMargins(19, 0, 0, 0)
+        self.checkBox_camera_left = QCheckBox(self.frame_24)
+        self.checkBox_camera_left.setObjectName(u"checkBox_camera_left")
+        self.checkBox_camera_left.setEnabled(False)
+        self.checkBox_camera_left.setChecked(True)
+
+        self.horizontalLayout_41.addWidget(self.checkBox_camera_left)
+
+        self.checkBox_camera_right = QCheckBox(self.frame_24)
+        self.checkBox_camera_right.setObjectName(u"checkBox_camera_right")
+        self.checkBox_camera_right.setEnabled(False)
+
+        self.horizontalLayout_41.addWidget(self.checkBox_camera_right)
+
+        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_41.addItem(self.horizontalSpacer_5)
+
+
+        self.verticalLayout_5.addWidget(self.frame_24)
+
+        self.show_image = QLabel(self.frame_22)
         self.show_image.setObjectName(u"show_image")
         self.show_image.setEnabled(True)
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
@@ -712,7 +748,10 @@ class Ui_MainWindow(object):
         self.show_image.setWordWrap(False)
         self.show_image.setOpenExternalLinks(False)
 
-        self.horizontalLayout_12.addWidget(self.show_image)
+        self.verticalLayout_5.addWidget(self.show_image)
+
+
+        self.horizontalLayout_12.addWidget(self.frame_22)
 
 
         self.verticalLayout_15.addWidget(self.frame_18)
@@ -2655,6 +2694,8 @@ class Ui_MainWindow(object):
         self.groupBox_6.setTitle(QCoreApplication.translate("MainWindow", u"Calendar", None))
         self.label_date_2.setText(QCoreApplication.translate("MainWindow", u"Selected Date :", None))
         self.label_date.setText("")
+        self.checkBox_camera_left.setText(QCoreApplication.translate("MainWindow", u"Camera Left", None))
+        self.checkBox_camera_right.setText(QCoreApplication.translate("MainWindow", u"Camera Right", None))
         self.show_image.setText("")
 #if QT_CONFIG(tooltip)
         self.play_btn.setToolTip(QCoreApplication.translate("MainWindow", u"Show Live", None))

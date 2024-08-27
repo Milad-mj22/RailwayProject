@@ -6,10 +6,15 @@ from get_ping import PingThread
 import threading
 from PySide6.QtWidgets import QMessageBox
 from constanst import MAX_SPEED,COLUMN_DESTINATION,TABLE_PATHES
-import os
+import os,time
 from loading_train import LoadingWindow
 from ImageLoader import ImageLoader
 from threading import Thread, Event
+from imagePlayer import ImagePLayer,WorkerImagePlayer
+from PySide6.QtGui import QPixmap
+
+
+
 
 
 class API:
@@ -27,8 +32,20 @@ class API:
         self.stop_event = Event()
         self.image_loader = ImageLoader(self.stop_event,'', self.speed_rate)
 
-        self.ui_obj.calendar_dialog.set_parent_function(self.calendar_day_click)
 
+        self.image_player = None
+
+
+
+        self.play_flag = False
+        self.worker_image_player = WorkerImagePlayer(refresh_rate=1)
+        self.image_player_thread = threading.Thread(target=self.worker_image_player.run_loop, daemon=True)
+        self.worker_image_player.refresh_signal.connect(self.next_image)
+        self.image_player_thread.start()
+
+
+        self.ui_obj.calendar_dialog.set_parent_function(self.calendar_day_click)
+        self.ui_obj.timeline.slider.sliderMovedWithTime.connect(self.update_timeline)
 
     def button_connector(self):
 
@@ -163,7 +180,8 @@ class API:
         if self.image_loader is not None:
             self.image_loader.update_fps(speed_rate=self.speed_rate)
 
-
+        if self.worker_image_player is not None:
+            self.worker_image_player.set_refresh_rate(refresh_date=self.speed_rate)
 
 
 
@@ -239,7 +257,7 @@ class API:
             print('Train id is none')
             return
         try:
-            self.path_train_id = os.path.join(self.des_path,self.train_id)
+            self.path_train_id = os.path.join(self.des_path,self.train_id,'left')
         except:
             print('Error in get path train id not exist')
             return 
@@ -292,6 +310,22 @@ class API:
 
     def play_images(self):
 
+
+        text = 'Start Playing'
+        self.ui_obj.update_log(text)
+
+        if not self.play_flag:
+
+            self.play_flag = True
+
+
+        
+
+
+
+
+        return
+
         if not self.image_loader.playing:
 
             if  self.image_loader.is_alive():
@@ -326,6 +360,20 @@ class API:
 
 
     def stop_show_image(self, event):
+
+        text = 'STOP Playing'
+        self.ui_obj.update_log(text)
+
+        if  self.play_flag:
+
+            self.play_flag = False
+
+
+        return
+
+
+
+
         # Stop the image loader thread when closing the window
         self.stop_event.set()
         self.image_loader.stop()
@@ -362,10 +410,13 @@ class API:
 
         self.set_timeline_exist(available_times)
 
+        self.image_player = ImagePLayer(path=path_day)
+
 
     def generate_path(self,date):
 
         path = os.path.join( self.path_train_id,
+                                   
                                     str(date.year),
                                     str(date.month),
                                     str(date.day),
@@ -390,6 +441,50 @@ class API:
     def set_timeline_exist(self,available_times):
 
         self.ui_obj.timeline.set_minutes_segments(available_times)
+
+
+
+
+
+    def next_image(self):
+        # print('next')
+        if self.image_player is not None and self.play_flag:
+            t1 =time.time()
+            img,status,dt ,path= self.image_player.next()
+            if status:
+                self.ui_obj.stop_btn.click()
+            else:
+                print('Elpassed time : ',time.time()-t1)
+                pixmap = QPixmap(path)
+                self.ui_obj.update_image(pixmap=pixmap)
+
+                ms_time = dt.hour * 3600000 + dt.minute * 60000 + dt.second * 1000
+
+                self.ui_obj.timeline.move_to_time(ms_time,False)
+
+
+
+
+
+
+
+    def update_timeline(self,ms:int):
+
+        # ms_time = dt.hour * 3600000 + dt.minute * 60000 + dt.second * 1000
+
+        temp =  int(ms/1000)
+        
+        h = temp//3600
+
+        temp = temp%3600
+
+        m = temp//60
+
+        s = temp%60
+
+
+
+        self.image_player.set_time(h = h,m=m,s=s)
 
 
 

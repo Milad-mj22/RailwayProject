@@ -24,6 +24,7 @@ class ImageLoader(QObject,Thread):
         
         self.stop_event = stop_event
 
+    
 
     def run(self):
             
